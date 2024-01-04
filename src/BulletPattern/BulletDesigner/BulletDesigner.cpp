@@ -16,9 +16,11 @@ void BulletDesigner::update(float deltaTime, sf::RenderWindow &window) {
     if (ImGui::CollapsingHeader(headingText.data())) {
         float columnWidth = ImGui::GetContentRegionAvailWidth() * 0.33f; // divide by the number of columns
 
+        ImGui::PushID(std::to_string(identifier).data());
+
         for (int i = 0; i < points.size(); i++) {
             std::string header = ("Point " + std::to_string(i));
-            ImGui::PushID(i);
+            ImGui::PushID((std::to_string(identifier) + std::to_string(i)).data());
             ImGui::Text(header.data());
             ImGui::Columns(3, (header.data()), true);
             ImGui::SetColumnWidth(0, columnWidth);
@@ -56,6 +58,8 @@ void BulletDesigner::update(float deltaTime, sf::RenderWindow &window) {
                 point.update(deltaTime, window);
             }
         }
+
+        ImGui::PopID();
     }
 }
 
