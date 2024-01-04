@@ -30,13 +30,14 @@ void BulletDesigner::update(
         ImGui::PushID(std::to_string(identifier).data());
 
         if (isClone) {
-            // @TODO We shouldn't show anything here that's a clone or itself!
             if (ImGui::BeginCombo("Clone of ", existingBullets[cloneOf].name.data())) {
                 for (int i = 0; i < existingBullets.size(); i++) {
                     const bool isSelected = (cloneOf == i);
 
-                    if (ImGui::Selectable(existingBullets[i].name.data(), isSelected)) {
-                        cloneOf = i;
+                    if (!existingBullets[i].isClone || isSelected) {
+                        if (ImGui::Selectable(existingBullets[i].name.data(), isSelected)) {
+                            cloneOf = i;
+                        }
                     }
 
                     if (isSelected) {
