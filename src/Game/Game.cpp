@@ -9,7 +9,7 @@ void Game::update(float deltaTime, sf::RenderWindow &window) {
     ImGui::Begin("Pattern Creator");
 
     if (ImGui::Button("Create Pattern")) {
-        bulletPatterns.emplace_back();
+        bulletPatterns.emplace_back(bulletPatterns.size() + 1);
     }
 
     ImGui::End();

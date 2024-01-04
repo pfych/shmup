@@ -1,9 +1,10 @@
 #include "BulletPattern.h"
 #include "imgui.h"
 
-BulletPattern::BulletPattern() {
+BulletPattern::BulletPattern(int _identifier) {
     // @TODO Eventually init a bullet pattern from a file
     patternName = "New Pattern";
+    identifier = _identifier;
     shotsLeft = 0;
     lastShootTimeMs = 0;
     shots = 1;
@@ -12,16 +13,33 @@ BulletPattern::BulletPattern() {
 }
 
 void BulletPattern::update(float deltaTime, sf::RenderWindow &window, sf::Clock clock) {
-    ImGui::Begin("Pattern Editor");
+    std::string headingText = "Pattern Editor " + std::to_string(identifier);
+    ImGui::Begin(headingText.data());
+
     int timeInMs = clock.getElapsedTime().asMilliseconds();
 
+    ImGui::InputText("Pattern Name", patternName.data(), patternName.size());
     ImGui::DragInt("Delay between shots", &betweenDelayMs, 1.f);
     ImGui::DragInt("Number of shots", &shots, 1.f);
+
+    float columnWidth = ImGui::GetContentRegionAvailWidth() * 0.33f;
+    ImGui::Columns(3, "MainButtons", true);
+    ImGui::SetColumnWidth(0, columnWidth);
+    ImGui::SetColumnWidth(1, columnWidth);
+    ImGui::SetColumnWidth(2, columnWidth);
 
     if (ImGui::Button("Fire")) {
         isFiring = true;
         shotsLeft = shots;
     }
+
+    ImGui::NextColumn();
+
+    if (ImGui::Button("Clean")) {
+        bullets = {};
+    }
+
+    ImGui::NextColumn();
 
     if (ImGui::Button("Create bullet")) {
         bulletDesignerBullets.emplace_back(
@@ -30,6 +48,7 @@ void BulletPattern::update(float deltaTime, sf::RenderWindow &window, sf::Clock 
         );
     }
 
+    ImGui::Columns(1);
 
     for (BulletDesigner &bulletDesignerBullet: bulletDesignerBullets) {
         bulletDesignerBullet.update(deltaTime, window);
@@ -39,6 +58,7 @@ void BulletPattern::update(float deltaTime, sf::RenderWindow &window, sf::Clock 
         bullet.update(deltaTime);
 
     }
+
     std::vector<int> bulletsToRemove;
     for (int i = 0; i < bullets.size(); i++) {
         Bullet bullet = bullets[i];

@@ -11,8 +11,7 @@ BulletDesigner::BulletDesigner(float _speed, int _identifier) :
 }
 
 void BulletDesigner::update(float deltaTime, sf::RenderWindow &window) {
-    // GUI For managing the path
-    std::string headingText = "BulletDesigner " + std::to_string(identifier);
+    std::string headingText = "Bullet " + std::to_string(identifier);
     if (ImGui::CollapsingHeader(headingText.data())) {
         float columnWidth = ImGui::GetContentRegionAvailWidth() * 0.33f; // divide by the number of columns
 
@@ -25,6 +24,7 @@ void BulletDesigner::update(float deltaTime, sf::RenderWindow &window) {
             ImGui::Columns(3, (header.data()), true);
             ImGui::SetColumnWidth(0, columnWidth);
             ImGui::SetColumnWidth(1, columnWidth);
+            ImGui::SetColumnWidth(2, columnWidth);
             ImGui::DragFloat("X##Start", &points[i].x, 1.0f, 200.f, 200.f, "%.3f");
             ImGui::NextColumn();
             ImGui::DragFloat("Y##Start", &points[i].y, 1.0f, 200.f, 200.f, "%.3f");
@@ -49,8 +49,8 @@ void BulletDesigner::update(float deltaTime, sf::RenderWindow &window) {
         }
 
         ImGui::Checkbox("Debug", &debug);
-        ImGui::Text("BulletDesigner Speed");
-        ImGui::SliderFloat("speed", &speed, 0.f, 100.0f);
+        ImGui::Text("Bullet Speed");
+        ImGui::DragFloat("speed", &speed, 1.f, 1.f);
 
         if (debug) {
             std::vector<Point> newMiddles;
