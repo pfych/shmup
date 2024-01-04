@@ -2,7 +2,6 @@
 #include "imgui.h"
 
 BulletPattern::BulletPattern(int _identifier) {
-    // @TODO Eventually init a bullet pattern from a file
     patternName = "New Pattern";
     identifier = _identifier;
     shotsLeft = 0;
@@ -51,7 +50,7 @@ void BulletPattern::update(float deltaTime, sf::RenderWindow &window, sf::Clock 
     ImGui::Columns(1);
 
     for (BulletDesigner &bulletDesignerBullet: bulletDesignerBullets) {
-        bulletDesignerBullet.update(deltaTime, window);
+        bulletDesignerBullet.update(deltaTime, window, bulletDesignerBullets);
     }
 
     for (Bullet &bullet: bullets) {

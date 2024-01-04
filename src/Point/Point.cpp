@@ -1,17 +1,17 @@
 #include "Point.h"
 
-Point::Point(float _x, float _y, bool _dragable, sf::Color color) {
+Point::Point(float _x, float _y, bool _dragable) {
     x = _x;
     y = _y;
     isDragging = false;
     dragable = _dragable;
     shape = sf::CircleShape(5.f);
-    shape.setFillColor(color);
+    color = sf::Color(255, 0, 0);
 }
 
 void Point::update(float deltaTime, sf::RenderWindow &window) {
     shape.setPosition(x, y);
-    
+
     if (dragable) {
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
             sf::Vector2 mousePosition = sf::Mouse::getPosition(window);
@@ -32,5 +32,6 @@ void Point::update(float deltaTime, sf::RenderWindow &window) {
 
 void Point::draw(sf::RenderWindow &window) {
     shape.setPosition(x, y);
+    shape.setFillColor(color);
     window.draw(shape);
 }

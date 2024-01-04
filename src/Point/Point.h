@@ -11,8 +11,9 @@ class Point {
 public:
     float x;
     float y;
+    sf::Color color;
 
-    Point(float _x, float _y, bool _dragable, sf::Color color);
+    Point(float _x, float _y, bool _dragable);
 
     void update(float deltaTime, sf::RenderWindow &window);
 
