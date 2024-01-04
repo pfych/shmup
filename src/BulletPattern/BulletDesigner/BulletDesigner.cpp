@@ -22,20 +22,21 @@ void BulletDesigner::update(
         const std::vector<BulletDesigner> &existingBullets
 ) {
     std::string headingText = "Bullet " + std::to_string(identifier);
-    
+
     if (ImGui::CollapsingHeader(headingText.data())) {
-        float halfColumnWidth = ImGui::GetContentRegionAvailWidth() * 0.33f; // divide by the number of columns
-        float thirdColumnWidth = ImGui::GetContentRegionAvailWidth() * 0.33f; // divide by the number of columns
+        float halfColumnWidth = ImGui::GetContentRegionAvailWidth() * 0.33f;
+        float thirdColumnWidth = ImGui::GetContentRegionAvailWidth() * 0.33f;
 
         ImGui::PushID(std::to_string(identifier).data());
 
         if (isClone) {
+            // @TODO We shouldn't show anything here that's a clone or itself!
             if (ImGui::BeginCombo("Clone of ", existingBullets[cloneOf].name.data())) {
                 for (int i = 0; i < existingBullets.size(); i++) {
                     const bool isSelected = (cloneOf == i);
 
                     if (ImGui::Selectable(existingBullets[i].name.data(), isSelected)) {
-                        cloneOf = i; // Set the current item when selected
+                        cloneOf = i;
                     }
 
                     if (isSelected) {
@@ -126,6 +127,7 @@ void BulletDesigner::update(
                 Point newPoint = originalPoint;
                 newPoint.x += offset.x;
                 newPoint.y += offset.y;
+                // @TODO This will get stuck if you "un-clone"
                 newPoint.color = sf::Color(255, 0, 0, 100);
 
                 if (i != 0) {
