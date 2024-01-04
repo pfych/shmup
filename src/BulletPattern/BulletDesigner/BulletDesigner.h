@@ -9,14 +9,11 @@ public:
 
     void draw(sf::RenderWindow &window) const;
 
-private:
-    int identifier;
-    float distance;
     float speed;
-    Coordinate position;
-
-    // For Debug - Visualise the bulletDesignerBullets
-    bool debug;
     std::vector<Point> points;
+private:
+    bool debug;
+    int identifier;
+    Coordinate position;
     std::vector<Point> middles;
 };

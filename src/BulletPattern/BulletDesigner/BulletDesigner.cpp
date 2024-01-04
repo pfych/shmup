@@ -7,15 +7,7 @@
 BulletDesigner::BulletDesigner(float _speed, int _identifier) :
         speed(_speed),
         identifier(_identifier) {
-    distance = 50;
     debug = true;
-}
-
-Point amplify(Point point, float amplification) {
-    point.x *= amplification;
-    point.y *= amplification;
-
-    return point;
 }
 
 void BulletDesigner::update(float deltaTime, sf::RenderWindow &window) {
@@ -57,39 +49,13 @@ void BulletDesigner::update(float deltaTime, sf::RenderWindow &window) {
         ImGui::Checkbox("Debug", &debug);
         ImGui::Text("BulletDesigner Speed");
         ImGui::SliderFloat("speed", &speed, 0.f, 100.0f);
-        ImGui::Text("Distance along line");
-        ImGui::SliderFloat("Distance", &distance, 0.f, 100.0f);
-    }
 
-    if (distance >= 100) {
-        distance = 0;
-    } else {
-        distance += speed * deltaTime;
-    }
-
-    float distanceAsRange = distance / 100;
-
-    if (points.size() == 2) {
-        position = lerp(points[0], points[1], distanceAsRange);
-    } else if (points.size() == 3) {
-        position = BezierPoint(points[0], points[1], points[2], distanceAsRange);
-    } else if (points.size() == 4) {
-        position = BezierPoint(points[0], points[1], points[2], points[3], distanceAsRange);
-    }
-
-    if (debug) {
-        std::vector<Point> newMiddles;
-        for (int i = 0; i < points.size(); i++) {
-            points[i].update(deltaTime, window);
-
-            if (points.size() >= 2) {
-                if (i != 0) {
-                    Coordinate middle = lerp(points[i - 1], points[i], distanceAsRange);
-                    newMiddles.emplace_back(middle.x, middle.y, false, sf::Color(0, 255, 0));
-                }
+        if (debug) {
+            std::vector<Point> newMiddles;
+            for (auto &point: points) {
+                point.update(deltaTime, window);
             }
         }
-        middles = newMiddles;
     }
 }
 
@@ -115,9 +81,4 @@ void BulletDesigner::draw(sf::RenderWindow &window) const {
             }
         }
     }
-
-    sf::CircleShape bulletShape(5.f);
-    bulletShape.setFillColor(sf::Color(0, 0, 255));
-    bulletShape.setPosition(position.x, position.y);
-    window.draw(bulletShape);
 }
