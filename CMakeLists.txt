@@ -21,8 +21,8 @@ add_executable(shmup__ main.cpp
         src/Game/Game.h
         src/BulletPattern/BulletPattern.cpp
         src/BulletPattern/BulletPattern.h
-        src/BulletPattern/Bullet/Bullet.cpp
-        src/BulletPattern/Bullet/Bullet.h
+        src/BulletPattern/BulletDesigner/BulletDesigner.cpp
+        src/BulletPattern/BulletDesigner/BulletDesigner.h
         src/Point/Point.h
         src/utils/bezierUtils.cpp
         src/utils/bezierUtils.h

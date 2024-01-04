@@ -1,9 +1,9 @@
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "../../Point/Point.h"
 
-class Bullet {
+class BulletDesigner {
 public:
-    Bullet(float _speed, int _identifier);
+    BulletDesigner(float _speed, int _identifier);
 
     void update(float deltaTime, sf::RenderWindow &window);
 
@@ -15,7 +15,7 @@ private:
     float speed;
     Coordinate position;
 
-    // For Debug - Visualise the bullets
+    // For Debug - Visualise the bulletDesignerBullets
     bool debug;
     std::vector<Point> points;
     std::vector<Point> middles;

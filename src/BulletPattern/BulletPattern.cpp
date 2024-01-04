@@ -10,22 +10,22 @@ void BulletPattern::update(float deltaTime, sf::RenderWindow &window) {
     ImGui::Begin("Pattern Editor");
 
     if (ImGui::Button("Create bullet")) {
-        bullets.emplace_back(
+        bulletDesignerBullets.emplace_back(
                 5,
-                bullets.size() + 1
+                bulletDesignerBullets.size() + 1
         );
     }
 
 
-    for (Bullet &bullet: bullets) {
-        bullet.update(deltaTime, window);
+    for (BulletDesigner &bulletDesignerBullet: bulletDesignerBullets) {
+        bulletDesignerBullet.update(deltaTime, window);
     }
 
     ImGui::End();
 }
 
 void BulletPattern::draw(sf::RenderWindow &window) {
-    for (Bullet &bullet: bullets) {
-        bullet.draw(window);
+    for (BulletDesigner &bulletDesignerBullet: bulletDesignerBullets) {
+        bulletDesignerBullet.draw(window);
     }
 }

@@ -1,10 +1,10 @@
 #include <iostream>
-#include "Bullet.h"
+#include "BulletDesigner.h"
 #include "SFML/Graphics.hpp"
 #include "imgui.h"
 #include "../../utils/bezierUtils.h"
 
-Bullet::Bullet(float _speed, int _identifier) :
+BulletDesigner::BulletDesigner(float _speed, int _identifier) :
         speed(_speed),
         identifier(_identifier) {
     distance = 50;
@@ -18,9 +18,9 @@ Point amplify(Point point, float amplification) {
     return point;
 }
 
-void Bullet::update(float deltaTime, sf::RenderWindow &window) {
+void BulletDesigner::update(float deltaTime, sf::RenderWindow &window) {
     // GUI For managing the path
-    std::string headingText = "Bullet " + std::to_string(identifier);
+    std::string headingText = "BulletDesigner " + std::to_string(identifier);
     if (ImGui::CollapsingHeader(headingText.data())) {
         float columnWidth = ImGui::GetContentRegionAvailWidth() * 0.33f; // divide by the number of columns
 
@@ -55,7 +55,7 @@ void Bullet::update(float deltaTime, sf::RenderWindow &window) {
         }
 
         ImGui::Checkbox("Debug", &debug);
-        ImGui::Text("Bullet Speed");
+        ImGui::Text("BulletDesigner Speed");
         ImGui::SliderFloat("speed", &speed, 0.f, 100.0f);
         ImGui::Text("Distance along line");
         ImGui::SliderFloat("Distance", &distance, 0.f, 100.0f);
@@ -93,7 +93,7 @@ void Bullet::update(float deltaTime, sf::RenderWindow &window) {
     }
 }
 
-void Bullet::draw(sf::RenderWindow &window) const {
+void BulletDesigner::draw(sf::RenderWindow &window) const {
     if (debug) {
         for (int i = 0; i < points.size(); i++) {
             Point point = points[i];

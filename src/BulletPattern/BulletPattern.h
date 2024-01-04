@@ -1,5 +1,5 @@
 #include "SFML/Graphics/RenderWindow.hpp"
-#include "Bullet/Bullet.h"
+#include "Bullet/BulletDesigner.h"
 
 class BulletPattern {
 public:
@@ -11,5 +11,5 @@ public:
 
 private:
     std::string patternName;
-    std::vector<Bullet> bullets;
+    std::vector<BulletDesigner> bulletDesignerBullets;
 };
