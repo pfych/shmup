@@ -4,15 +4,23 @@
 BulletPattern::BulletPattern() {
     // @TODO Eventually init a bullet pattern from a file
     patternName = "New Pattern";
+    shotsLeft = 0;
+    lastShootTimeMs = 0;
+    shots = 1;
+    isFiring = false;
+    betweenDelayMs = 100;
 }
 
-void BulletPattern::update(float deltaTime, sf::RenderWindow &window) {
+void BulletPattern::update(float deltaTime, sf::RenderWindow &window, sf::Clock clock) {
     ImGui::Begin("Pattern Editor");
+    int timeInMs = clock.getElapsedTime().asMilliseconds();
+
+    ImGui::DragInt("Delay between shots", &betweenDelayMs, 1.f);
+    ImGui::DragInt("Number of shots", &shots, 1.f);
 
     if (ImGui::Button("Fire")) {
-        for (const BulletDesigner &bulletDesignerBullet: bulletDesignerBullets) {
-            bullets.emplace_back(bulletDesignerBullet.speed, bulletDesignerBullet.points);
-        }
+        isFiring = true;
+        shotsLeft = shots;
     }
 
     if (ImGui::Button("Create bullet")) {
@@ -28,7 +36,32 @@ void BulletPattern::update(float deltaTime, sf::RenderWindow &window) {
     }
 
     for (Bullet &bullet: bullets) {
-        bullet.update(deltaTime, window);
+        bullet.update(deltaTime);
+
+    }
+    std::vector<int> bulletsToRemove;
+    for (int i = 0; i < bullets.size(); i++) {
+        Bullet bullet = bullets[i];
+
+        if (bullet.isOffScreen(window)) {
+            bulletsToRemove.push_back(i);
+        }
+    }
+
+    for (int bulletToRemove: bulletsToRemove) {
+        bullets.erase(bullets.begin() + bulletToRemove);
+    }
+
+    if (isFiring) {
+        if (shotsLeft > 0) {
+            if (timeInMs > lastShootTimeMs + betweenDelayMs) {
+                lastShootTimeMs = timeInMs;
+                shotsLeft -= 1;
+                for (const BulletDesigner &bulletDesignerBullet: bulletDesignerBullets) {
+                    bullets.emplace_back(bulletDesignerBullet.speed, bulletDesignerBullet.points);
+                }
+            }
+        }
     }
 
     ImGui::End();

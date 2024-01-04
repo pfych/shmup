@@ -11,4 +11,5 @@ public:
 
 private:
     std::vector<BulletPattern> bulletPatterns;
+    sf::Clock clock;
 };

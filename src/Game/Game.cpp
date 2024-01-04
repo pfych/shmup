@@ -2,7 +2,7 @@
 #include "imgui.h"
 
 Game::Game() {
-
+    clock = sf::Clock();
 }
 
 void Game::update(float deltaTime, sf::RenderWindow &window) {
@@ -15,7 +15,7 @@ void Game::update(float deltaTime, sf::RenderWindow &window) {
     ImGui::End();
 
     for (BulletPattern &bulletPattern: bulletPatterns) {
-        bulletPattern.update(deltaTime, window);
+        bulletPattern.update(deltaTime, window, clock);
     }
 }
 

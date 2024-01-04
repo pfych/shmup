@@ -19,6 +19,8 @@ file(COPY ${RESOURCES_SOURCE_DIR}/ DESTINATION ${RESOURCES_DEST_DIR})
 add_executable(shmup__ main.cpp
         src/Game/Game.cpp
         src/Game/Game.h
+        src/BulletPattern/Bullet/Bullet.cpp
+        src/BulletPattern/Bullet/Bullet.h
         src/BulletPattern/BulletPattern.cpp
         src/BulletPattern/BulletPattern.h
         src/BulletPattern/BulletDesigner/BulletDesigner.cpp
