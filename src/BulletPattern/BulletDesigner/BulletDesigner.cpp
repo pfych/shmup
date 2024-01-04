@@ -18,8 +18,7 @@ BulletDesigner::BulletDesigner(float _speed, int _identifier) :
 
 void BulletDesigner::update(
         float deltaTime,
-        sf::RenderWindow &window,
-        sf::View &view,
+        sf::Vector2f mousePositionInView,
         const std::vector<BulletDesigner> &existingBullets
 ) {
     std::string headingText = "Bullet " + std::to_string(identifier);
@@ -108,7 +107,7 @@ void BulletDesigner::update(
 
     if (debug) {
         for (auto &point: points) {
-            point.update(deltaTime, window, view);
+            point.update(deltaTime, mousePositionInView);
         }
     }
 

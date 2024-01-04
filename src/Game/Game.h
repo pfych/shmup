@@ -5,7 +5,7 @@ class Game {
 public:
     Game();
 
-    void update(float deltaTime, sf::RenderWindow &window, sf::View &view);
+    void update(float deltaTime, sf::RenderWindow &window, sf::Vector2f mousePositionInView);
 
     void draw(sf::RenderWindow &window);
 

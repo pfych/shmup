@@ -9,13 +9,12 @@ Point::Point(float _x, float _y, bool _dragable) {
     color = sf::Color(255, 0, 0);
 }
 
-void Point::update(float deltaTime, sf::RenderWindow &window, sf::View &view) {
+void Point::update(float deltaTime, sf::Vector2f mousePositionInView) {
     shape.setPosition(x, y);
 
     if (dragable) {
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-            sf::Vector2 mousePosition = sf::Mouse::getPosition(window);
-            sf::Vector2f mousePositionInView = window.mapPixelToCoords(mousePosition, view);
+
 
             if (shape.getGlobalBounds().contains(mousePositionInView)) {
                 isDragging = true;

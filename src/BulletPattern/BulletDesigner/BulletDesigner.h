@@ -5,8 +5,11 @@ class BulletDesigner {
 public:
     BulletDesigner(float _speed, int _identifier);
 
-    void update(float deltaTime, sf::RenderWindow &window, sf::View &view,
-                const std::vector<BulletDesigner> &existingBullets);
+    void update(
+            float deltaTime,
+            sf::Vector2f mousePositionInView,
+            const std::vector<BulletDesigner> &existingBullets
+    );
 
     void draw(sf::RenderWindow &window) const;
 

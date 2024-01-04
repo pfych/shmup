@@ -5,8 +5,7 @@ Game::Game() {
     clock = sf::Clock();
 }
 
-// @TODO Learn how to avoid drilling view and window like this?
-void Game::update(float deltaTime, sf::RenderWindow &window, sf::View &view) {
+void Game::update(float deltaTime, sf::RenderWindow &window, sf::Vector2f mousePositionInView) {
     ImGui::Begin("Pattern Creator");
 
     if (ImGui::Button("Create Pattern")) {
@@ -16,7 +15,7 @@ void Game::update(float deltaTime, sf::RenderWindow &window, sf::View &view) {
     ImGui::End();
 
     for (BulletPattern &bulletPattern: bulletPatterns) {
-        bulletPattern.update(deltaTime, window, view, clock);
+        bulletPattern.update(deltaTime, window, mousePositionInView, clock);
     }
 }
 
