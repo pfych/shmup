@@ -2,7 +2,7 @@
 #include "imgui.h"
 
 
-Options::Options(sf::VideoMode _resolution) {
+Options::Options(sf::RenderWindow *_window, sf::VideoMode _resolution) : window(_window) {
     resolution = _resolution;
     fullscreen = false;
     selectedResolutionIndex = 0;
@@ -14,7 +14,7 @@ std::string Options::getPrettyResolutionName(sf::VideoMode _resolution) {
            + std::to_string(_resolution.height);
 }
 
-void Options::update(sf::RenderWindow &window) {
+void Options::update() {
     ImGui::Begin("Options");
 
     if (ImGui::BeginCombo("Resolution ", getPrettyResolutionName(validResolutions[selectedResolutionIndex]).c_str())) {
@@ -37,13 +37,13 @@ void Options::update(sf::RenderWindow &window) {
 
     if (ImGui::Button("Apply")) {
         if (fullscreen) {
-            window.create(
+            window->create(
                     sf::VideoMode(validResolutions[selectedResolutionIndex]),
                     "Shmup",
                     sf::Style::Fullscreen
             );
         } else {
-            window.create(
+            window->create(
                     sf::VideoMode(validResolutions[selectedResolutionIndex]),
                     "Shmup",
                     sf::Style::Titlebar | sf::Style::Close

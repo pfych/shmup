@@ -1,7 +1,7 @@
 #include "SFML/Graphics.hpp"
 #include "imgui-SFML.h"
 #include "src/Game/Game.h"
-#include "src/OptionsMenu/Options.h"
+#include "src/Menus/Menus.h"
 
 int main() {
     sf::RenderWindow window = sf::RenderWindow(
@@ -17,7 +17,8 @@ int main() {
     ImGui::SFML::Init(window);
     sf::Clock deltaClock;
     Game game;
-    Options options({720, 1080});
+    Options options(&window, {1920, 1080});
+    Menus menu(&game, &options);
 
     while (window.isOpen()) {
         for (auto event = sf::Event{}; window.pollEvent(event);) {
@@ -29,6 +30,7 @@ int main() {
 
             if (event.type == sf::Event::Resized) {
                 window.setView(view);
+                menu.setWindowSize({static_cast<float>(event.size.width), static_cast<float>(event.size.height)});
             }
         }
 
@@ -40,9 +42,9 @@ int main() {
         sf::Time delta = deltaClock.restart();
         ImGui::SFML::Update(window, delta);
 
-        options.update(window);
         game.update(delta.asSeconds(), window, mousePositionInView);
         game.draw(window);
+        menu.update();
 
         ImGui::SFML::Render(window);
         window.display();

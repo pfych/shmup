@@ -1,3 +1,5 @@
+#pragma once
+
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "BulletDesigner/BulletDesigner.h"
 #include "Bullet/Bullet.h"

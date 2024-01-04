@@ -1,16 +1,17 @@
+#pragma once
+
 #include "SFML/Graphics.hpp"
 
 class Options {
 public:
-    Options(sf::VideoMode _resolution);
+    explicit Options(sf::RenderWindow *_window, sf::VideoMode _resolution);
 
-    void update(sf::RenderWindow &window);
-
-    void draw(sf::RenderWindow &window);
+    void update();
 
 private:
     bool fullscreen;
     sf::VideoMode resolution;
+    sf::RenderWindow *window;
     int selectedResolutionIndex;
 
     static std::string getPrettyResolutionName(sf::VideoMode _resolution);
