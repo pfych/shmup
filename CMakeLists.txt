@@ -28,7 +28,9 @@ add_executable(shmup__ main.cpp
         src/Point/Point.h
         src/utils/bezierUtils.cpp
         src/utils/bezierUtils.h
-        src/Point/Point.cpp)
+        src/Point/Point.cpp
+        src/OptionsMenu/Options.cpp
+        src/OptionsMenu/Options.h)
 target_link_libraries(shmup__ PRIVATE sfml-graphics ImGui-SFML::ImGui-SFML SQLiteCpp)
 target_compile_features(shmup__ PRIVATE cxx_std_17)
 

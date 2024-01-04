@@ -11,7 +11,7 @@ BulletPattern::BulletPattern(int _identifier) {
     betweenDelayMs = 100;
 }
 
-void BulletPattern::update(float deltaTime, sf::RenderWindow &window, sf::Clock clock) {
+void BulletPattern::update(float deltaTime, sf::RenderWindow &window, sf::View &view, sf::Clock clock) {
     std::string headingText = "Pattern Editor " + std::to_string(identifier);
     ImGui::Begin(headingText.data());
 
@@ -50,7 +50,7 @@ void BulletPattern::update(float deltaTime, sf::RenderWindow &window, sf::Clock 
     ImGui::Columns(1);
 
     for (BulletDesigner &bulletDesignerBullet: bulletDesignerBullets) {
-        bulletDesignerBullet.update(deltaTime, window, bulletDesignerBullets);
+        bulletDesignerBullet.update(deltaTime, window, view, bulletDesignerBullets);
     }
 
     for (Bullet &bullet: bullets) {

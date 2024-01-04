@@ -15,7 +15,7 @@ public:
 
     Point(float _x, float _y, bool _dragable);
 
-    void update(float deltaTime, sf::RenderWindow &window);
+    void update(float deltaTime, sf::RenderWindow &window, sf::View &view);
 
     void draw(sf::RenderWindow &window);
 

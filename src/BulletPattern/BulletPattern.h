@@ -6,7 +6,7 @@ class BulletPattern {
 public:
     BulletPattern(int _identifier);
 
-    void update(float deltaTime, sf::RenderWindow &window, sf::Clock clock);
+    void update(float deltaTime, sf::RenderWindow &window, sf::View &view, sf::Clock clock);
 
     void draw(sf::RenderWindow &window);
 
