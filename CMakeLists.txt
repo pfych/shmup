@@ -33,7 +33,7 @@ add_executable(shmup__ main.cpp
         src/OptionsMenu/Options.h
         src/Menus/Menus.cpp
         src/Menus/Menus.h)
-target_link_libraries(shmup__ PRIVATE sfml-graphics ImGui-SFML::ImGui-SFML SQLiteCpp)
+target_link_libraries(shmup__ PRIVATE sfml-graphics ImGui-SFML::ImGui-SFML SQLiteCpp fmt)
 target_compile_features(shmup__ PRIVATE cxx_std_17)
 
 if (WIN32)

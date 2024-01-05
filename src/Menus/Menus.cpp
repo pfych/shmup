@@ -1,6 +1,5 @@
 #include "Menus.h"
 #include "imgui.h"
-#include "../OptionsMenu/Options.h"
 
 Menus::Menus(Game *_game, Options *_options) : game(_game), options(_options) {
     isOptionsOpen = false;

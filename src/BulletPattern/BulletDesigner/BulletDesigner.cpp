@@ -1,19 +1,28 @@
 #include <iostream>
-#include "BulletDesigner.h"
+#include <cmath>
 #include "SFML/Graphics.hpp"
+#include "BulletDesigner.h"
 #include "imgui.h"
 #include "../../utils/bezierUtils.h"
-#include <cmath>
 
-BulletDesigner::BulletDesigner(float _speed, int _identifier) :
-        speed(_speed),
-        identifier(_identifier) {
+BulletDesigner::BulletDesigner(
+        float _speed,
+        int _identifier,
+        std::string _name,
+        const std::vector<Point> &_points,
+        bool _isClone,
+        int _cloneOf,
+        Coordinate _offset,
+        float _rotation
+) : speed(_speed),
+    identifier(_identifier),
+    name(_name.data(), 256),
+    points(_points),
+    isClone(_isClone),
+    cloneOf(_cloneOf),
+    offset(_offset),
+    rotation(_rotation) {
     debug = true;
-    isClone = false;
-    cloneOf = 0;
-    name = "New Bullet " + std::to_string(identifier);
-    offset = {.x = 0, .y = 0};
-    rotation = 0;
 }
 
 void BulletDesigner::update(
@@ -24,8 +33,8 @@ void BulletDesigner::update(
     std::string headingText = "Bullet " + std::to_string(identifier);
 
     if (ImGui::CollapsingHeader(headingText.data())) {
-        float halfColumnWidth = ImGui::GetContentRegionAvailWidth() * 0.33f;
-        float thirdColumnWidth = ImGui::GetContentRegionAvailWidth() * 0.33f;
+        float halfColumnWidth = ImGui::GetContentRegionAvail().x * 0.33f;
+        float thirdColumnWidth = ImGui::GetContentRegionAvail().x * 0.33f;
 
         ImGui::PushID(std::to_string(identifier).data());
 
@@ -61,7 +70,7 @@ void BulletDesigner::update(
             ImGui::DragFloat("rotation", &rotation, 1.f, 1.f, 360.f);
 
         } else {
-            ImGui::InputText("Name", name.data(), 64);
+            ImGui::InputText("Name", name.data(), 256);
 
             for (int i = 0; i < points.size(); i++) {
                 std::string header = ("Point " + std::to_string(i));

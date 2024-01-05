@@ -1,5 +1,5 @@
-#include "../Point/Point.h"
 #include "SFML/Graphics.hpp"
+#include "../Point/Point.h"
 
 
 template<typename T>

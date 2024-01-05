@@ -12,14 +12,20 @@ public:
 
     void draw(sf::RenderWindow &window);
 
+    void save();
+
+    void load();
+
 private:
+    std::string fileName;
     std::string patternName;
+    int shotCount;
+    int delayBetweenShotsMs;
+    std::vector<BulletDesigner> bulletDesignerBullets;
+
     int identifier;
     bool isFiring;
-    int shots;
-    int betweenDelayMs;
     int shotsLeft;
     int lastShootTimeMs;
-    std::vector<BulletDesigner> bulletDesignerBullets;
     std::vector<Bullet> bullets;
 };

@@ -1,6 +1,6 @@
+#include <utility>
 #include "Bullet.h"
 #include "../../utils/bezierUtils.h"
-#include <utility>
 
 Bullet::Bullet(float _speed, std::vector<Point> _points) :
         speed(_speed),
