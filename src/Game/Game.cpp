@@ -18,5 +18,5 @@ void Game::draw(sf::RenderWindow &window) {
 }
 
 void Game::createBulletPattern() {
-    bulletPatterns.emplace_back(bulletPatterns.size() + 1);
+    bulletPatterns.emplace_back(bulletPatterns.size() + 1, &bulletPatterns);
 }

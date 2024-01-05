@@ -10,8 +10,8 @@ void Menus::update() {
     ImGui::Begin("Main Window", nullptr, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDecoration);
 
     if (ImGui::BeginMenuBar()) {
-        ImGui::SetWindowPos(ImVec2(0, 0));
-        ImGui::SetWindowSize({windowSize.x, 0});
+        ImGui::SetWindowPos(ImVec2(windowSize.x - windowSize.x / 4, 0));
+        ImGui::SetWindowSize({windowSize.x / 4, 0});
 
         if (ImGui::BeginMenu("Main")) {
             if (ImGui::MenuItem("New Pattern")) {

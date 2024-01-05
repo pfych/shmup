@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <fmt/format.h>
 #include "SFML/Graphics.hpp"
 #include "BulletDesigner.h"
 #include "imgui.h"
@@ -73,7 +74,7 @@ void BulletDesigner::update(
             ImGui::InputText("Name", name.data(), 256);
 
             for (int i = 0; i < points.size(); i++) {
-                std::string header = ("Point " + std::to_string(i));
+                std::string header = fmt::format("Point {}", std::to_string(i));
                 ImGui::PushID((std::to_string(identifier) + std::to_string(i)).data());
                 ImGui::Text(header.data());
                 ImGui::Columns(3, (header.data()), true);

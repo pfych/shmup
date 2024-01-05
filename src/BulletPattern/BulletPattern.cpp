@@ -5,8 +5,10 @@
 #include "BulletPattern.h"
 #include "imgui.h"
 
-BulletPattern::BulletPattern(int _identifier) : patternName("New Pattern\0", 256) {
-    identifier = _identifier;
+BulletPattern::BulletPattern(int _identifier, std::vector<BulletPattern> *_existingPatterns) :
+        patternName("New Pattern\0", 256),
+        identifier(_identifier),
+        existingPatterns(_existingPatterns) {
     shotsLeft = 0;
     lastShootTimeMs = 0;
     shotCount = 1;
@@ -25,7 +27,8 @@ void BulletPattern::update(
 
     if (ImGui::BeginMenuBar()) {
         if (ImGui::BeginMenu("File")) {
-            if (ImGui::MenuItem("Save")) {
+            std::string saveLabel = fileName.empty() ? "Save" : "Update";
+            if (ImGui::MenuItem(saveLabel.data())) {
                 save();
             }
 
@@ -46,6 +49,14 @@ void BulletPattern::update(
                 }
 
                 ImGui::EndMenu();
+            }
+
+            if (ImGui::MenuItem("Exit")) {
+                existingPatterns->erase(std::remove_if(existingPatterns->begin(), existingPatterns->end(),
+                                                       [this](const BulletPattern &pattern) -> bool {
+                                                           return identifier == pattern.identifier;
+                                                       }),
+                                        existingPatterns->end());
             }
 
             ImGui::EndMenu();
@@ -186,6 +197,7 @@ void BulletPattern::save() {
     } else {
         saveFileName = fileName;
     }
+    fileName = saveFileName;
 
     std::string parentFolder = "patterns";
     std::string filePath = fmt::format("{}/{}", parentFolder, saveFileName);

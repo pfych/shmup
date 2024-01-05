@@ -3,6 +3,8 @@
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "../BulletPattern/BulletPattern.h"
 
+class BulletPattern;
+
 class Game {
 public:
     Game();
